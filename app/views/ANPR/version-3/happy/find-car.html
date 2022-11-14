@@ -8,46 +8,6 @@ GOV.UK Prototype Kit
 {% block content %}
 
 
-<script>
-  var loadFile = function(event) {
-    var image = document.getElementById('output');
-    image.src = URL.createObjectURL(event.target.files[0]);
-
-    var x = document.getElementById("myDIV");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
-
-    var x = document.getElementById("hide-top-header");
-    if (x.style.display === "block") {
-      x.style.display = "none";
-    } else {
-      x.style.display = "none";
-    }
-
-    var x = document.getElementById("open-camera-button");
-    if (x.style.display === "block") {
-      x.style.display = "none";
-    } else {
-      x.style.display = "none";
-    }
-
-    var x = document.getElementById("hide-help");
-    if (x.style.display === "block") {
-      x.style.display = "none";
-    } else {
-      x.style.display = "none";
-    }
-
-  };
-
-
-</script>
-
-
-
 <div class="govuk-width-container">
 
   <div class="govuk-phase-banner">
@@ -83,11 +43,134 @@ GOV.UK Prototype Kit
       </div>
 
 
-      <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+      <input type="file" accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
 
       <label id="open-camera-button" for="file" class="govuk-button" onchange="gotopage(this)">Take photo</label>
 
       <!-- <p><img id="output" width="200" /></p> -->
+
+      <script>
+        var loadFile = function(event) {
+          var image = document.getElementById('output');
+          image.src = URL.createObjectURL(event.target.files[0]);
+
+          var x = document.getElementById("myDIV");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("processing");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("hide-top-header");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("open-camera-button");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("hide-help");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+          if(document.getElementById("processing").style.display = "block") {
+            setTimeout(function () {
+                  // proceed
+                  document.getElementById('button1').click()
+              }, 1500)
+             }
+        };
+
+      </script>
+
+<!--
+<script>
+      function check() {
+          (document.getElementById("processing").style.display = "block")
+        return true;
+      }
+
+      if(check()) {
+        setTimeout(function () {
+              // proceed
+              document.getElementById('button1').click()
+          }, 1000)
+         }
+</script>
+-->
+
+      <div id="processing" style="display: none;">
+
+
+    <!--      <h1 class="govuk-heading-l govuk-!-margin-bottom-9">Returning you to 'Request a basic DBS check'</h1>-->
+
+          <div class="ccms-loader ccms-loader__fast govuk-!-margin-bottom-6"></div>
+
+          <p style="text-align: center;">Processing image</p>
+
+          <button id="button1" class="govuk-button govuk-!-margin-top-4 govuk-visually-hidden" data-module="govuk-button" onclick="renderPhoto()">Continue</button>
+
+
+      </div>
+
+      <script>
+        var renderPhoto = function(event) {
+
+          var x = document.getElementById("myDIV");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("processing");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("hide-top-header");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("open-camera-button");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+          var x = document.getElementById("hide-help");
+          if (x.style.display === "block") {
+            x.style.display = "none";
+          } else {
+            x.style.display = "none";
+          }
+
+        };
+
+      </script>
+
+
 
       <div id="myDIV" style="display: none;">
 
@@ -101,13 +184,44 @@ GOV.UK Prototype Kit
         </div>
 
 
+        <form class="govuk-button-group" action="select-car">
+
+          <button id="button2" class="govuk-button govuk-visually-hidden" data-module="govuk-button">Confirm photo</button>
+
+          <button class="govuk-button govuk-!-margin-top-4" id="button--save" data-module="govuk-button">Confirm photo</button>
+
+          <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+
+          <label for="file" class="govuk-button govuk-button--secondary" onchange="gotopage(this)">Take new photo</label>
+
+        </form>
 
 
-        <a href="select-car" class="govuk-button">Confirm photo</a>
+        <script type="text/javascript">
+          submitSpinner()
 
-        <input type="file"  accept="image/*" name="image" id="file"  onchange="loadFile(event)" style="display: none;">
+          function buttonClicked(target) {
+          target.setAttribute('disabled', 'disabled')
+          target.className += ' button--save'
+          setTimeout(function () {
+            document.getElementById('button2').click()
+          }, 2000)
+          }
 
-        <label for="file" class="govuk-button govuk-button--secondary" onchange="gotopage(this)">Take new photo</label>
+          function submitSpinner() {
+          var selects = document.getElementById('button--save')
+          selects.addEventListener('click', function (event) {
+            event.preventDefault()
+            if (selects.getAttribute('disabled') === 'disabled') {
+              console.log('already clicked')
+            } else {
+              event.preventDefault()
+              console.log(selects.getAttribute('disabled'))
+              buttonClicked(selects)
+            }
+          })
+          }
+        </script>
 
 
 
