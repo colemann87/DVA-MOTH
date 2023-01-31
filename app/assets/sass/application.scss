@@ -18,6 +18,21 @@ $govuk-assets-path: '/govuk/assets/';
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 
+// ANPR photo upload error
+
+.panel-photo-error {
+    background-image: url(/public/images/icon-thick-cross.svg);
+}
+
+.panel-photo-result {
+    margin: 10px 20px 10px 0;
+    border-left: 0;
+    padding-left: 38px;
+    background-repeat: no-repeat;
+    background-position: left 10px;
+    background-size: 36px;
+}
+
 .govuk-phase-banner {
   padding-top: 0px !important;
   margin-bottom: 10px !important;
